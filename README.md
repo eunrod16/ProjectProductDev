@@ -5,14 +5,14 @@ Dataset: https://www.kaggle.com/pavanraj159/predicting-a-pulsar-star
 
 ## Objetivos
 
-Utilizar plumber para crear un API que sirva para consumir un modelo de machine learning.
-Usar shiny apps para controlar la experimentación y reportería del endpoint.
+* Utilizar plumber para crear un API que sirva para consumir un modelo de machine learning.
+* Usar shiny apps para controlar la experimentación y reportería del endpoint.
 
 ## Entregables
 
-Trabajo escrito
-Explicación de la data
-Explicación de los modelos
+* Trabajo escrito
+* Explicación de la data
+* Explicación de los modelos
 Documentacion de los endpoints
 Video 2:30 min
 End points
