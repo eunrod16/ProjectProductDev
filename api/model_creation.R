@@ -50,5 +50,5 @@ classification <- rpart(target_class ~ std.DMSNR.curve + Excess.kurtosis.ip + Sk
 print(classification)
 summary(classification)
 
-Prediction <- predict(classification, test)
+Prediction <- predict(classification, test, type = "class")
 saveRDS(classification, "final_model_class.rds")
