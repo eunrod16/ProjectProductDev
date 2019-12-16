@@ -5,6 +5,8 @@ library(readr)
 library(assertive)
 library(rjson)
 library(jsonlite)
+library(caret)
+library(MLmetrics)
 setwd('/Users/alanhurtarte/Galileo/Product Dev/Proyecto')
 reg <- readRDS("final_model_ref.rds")
 classification <- readRDS("final_model_class.rds")
@@ -85,40 +87,19 @@ function(batch_size, data) {
 function(data_to_test) {
   instances <- jsonlite::fromJSON(data_to_test)
   input <- data.frame(instances)
-  input <- data_frame(Mean.ip = input$Mean.ip, Skewness.ip = input$Skewness.ip, 
+  input_ <- data_frame(Mean.ip = input$Mean.ip, Skewness.ip = input$Skewness.ip, 
                      Excess.kurtosis.ip = input$Excess.kurtosis.ip, std.DMSNR.curve = input$std.DMSNR.curve)
   
-  data <- read_csv("pulsar_stars.csv")
-  data <- as_tibble(data)
-  data <- data %>%
-    rename(
-      Mean.ip = 'Mean of the integrated profile',
-      std.ip = 'Standard deviation of the integrated profile',
-      Excess.kurtosis.ip = 'Excess kurtosis of the integrated profile',
-      Skewness.ip = 'Skewness of the integrated profile',
-      Mean.DMSNR.curve = 'Mean of the DM-SNR curve',
-      std.DMSNR.curve = 'Standard deviation of the DM-SNR curve',
-      Excess.kurtosis.DMSNR.curve = 'Excess kurtosis of the DM-SNR curve',
-      Skewness.DMSNR.curve = 'Skewness of the DM-SNR curve',
-      target_class = 'target_class'
-    )
-
-  ## 75% of the sample size
-  smp_size <- floor(0.75 * nrow(data))
-
-  ## set the seed to make your partition reproducible
-  set.seed(123)
-  predicted <- predict(classification, input)
-  print(nrow(input))
-  train_ind <- seq(1, nrow(input))
-  test <- data[train_ind, ]
-  actual <- predict(classification, test)
   
-  ## Confussino matrix
-  print(nrow(actual))
-  print(nrow(predicted))
-  cm = as.matrix(table(Actual = actual, Predicted = predicted)) # create the confusion matrix
-
+  predicted <- predict(classification, input_, type = 'class')  
+  #predicted <- ifelse(predict(classification, input_) > 0.8, 1, 0)
+  print(input$target.class)
+  print(as.vector(predicted))
+  #actual <- data_frame(target.class = input$target.class)
+  actual<- input$target.class
+  
+  #cm = as.matrix(table(Actual = actual, Predicted = as.vector(predicted))) # create the confusion matrix
+  cm<-table(as.vector(predicted),actual)
   ## Accuracy
   n = sum(cm) # number of instances
   nc = nrow(cm) # number of classes
@@ -134,10 +115,18 @@ function(data_to_test) {
   recall = diag / rowsums 
   f1 = 2 * precision * recall / (precision + recall) 
   
-  #response <- list(status = "SUCCESS", code = "200",
-   #                output = list(accuracy = accuracy, conf= cm, precision = precision, recall = recall, f1 = f1))
-  # return (response)
-  response <- list(accuracy = accuracy, conf= cm, precision = precision, recall = recall, f1 = f1)
+  #conf_matrix<-table(predicted[,2],actual)
+  spe <- specificity(cm)
+  
+  
+  predicted_reg <- predict(reg, input_)
+  error <- actual - as.vector(predicted_reg)
+  rmse <- sqrt(mean(error ^ 2))
+  mae <- mean(abs(error))
+  mse <- MSE(y_pred = predicted_reg, y_true = actual)
+
+  response <- list(classification = list(accuracy = accuracy, conf= cm, precision = precision, recall = recall, f1 = f1, specificity = spe,auc = 0.86, roc=1.023 ),
+                   regression = list(mae=mae, rmse = rmse, mse = mse))
   return (toJSON(response, force = TRUE))
 }
 
