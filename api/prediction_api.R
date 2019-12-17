@@ -5,25 +5,65 @@ library(readr)
 library(assertive)
 library(rjson)
 library(jsonlite)
-setwd('/Users/alanhurtarte/Galileo/Product Dev/Proyecto')
+setwd('/Users/eunicerodas/Documents/Maestria/ProductDev/proyecto-product-dev/api')
 reg <- readRDS("final_model_ref.rds")
 classification <- readRDS("final_model_class.rds")
+
+df_log <- data.frame(matrix(ncol = 7, nrow = 0))
+x <- c("Usurario", "Endpoint","UserAgent","Timestamp","Modelo","Payload","Output")
+colnames(df_log) <- x
+if (file.exists('../log.csv')){
+  df_log <- read_csv("../log.csv")
+}
+
+
+
 #* @apiTitle Predicting a Pulsar Star Regression
 #* @apiDescription Predicting if is a pulsar star based on data Regression
+
+#* @filter setuser
+function(req){
+  un <- req$cookies$user
+  # Make req$username available to endpoints
+  req$username <- un
+  plumber::forward()
+}
+
+
+#' Log system time, request method and HTTP user agent of the incoming request
+#' @filter logger
+function(req){
+  print(req$HTTP_USER)
+  plumber::forward()
+}
+
 
 #' @param std.DMSNR.curve Standard deviation of the DM-SNR curve
 #' @param Excess.kurtosis.ip Excess kurtosis of the integrated profile
 #' @param Skewness.ip Skewness of the integrated profile
 #' @param Mean.ip Mean of the integrated profile
 #' @post /stars/reg
-function(std.DMSNR.curve, Excess.kurtosis.ip, Skewness.ip, Mean.ip){
+function(std.DMSNR.curve, Excess.kurtosis.ip, Skewness.ip, Mean.ip,req){
  
   features <- data_frame('std.DMSNR.curve'= as.numeric(std.DMSNR.curve),
                          'Excess.kurtosis.ip'= as.numeric(Excess.kurtosis.ip),
                          'Skewness.ip'= as.numeric(Skewness.ip),
                          'Mean.ip' = as.numeric(Mean.ip)
                          )
+
+
   out<-predict(reg, features)
+  newRow <- data.frame(
+    Usuario='user',
+    Endpoint='/stars/reg',
+    UserAgent=req$HTTP_USER_AGENT,
+    Timestamp=as.character(Sys.time()),
+    Modelo='Regression',
+    Payload=features,
+    Output=out) 
+  df_log <- rbind(df_log, newRow)
+  print(df_log)
+  write.csv(df_log, file = "../log.csv",row.names=FALSE)
   as.character(out)
 }
 

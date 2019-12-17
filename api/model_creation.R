@@ -6,8 +6,8 @@ library(rpart.plot)
 library(RColorBrewer)
 library(corrplot)
 library(tidyverse)
-setwd('/Users/alanhurtarte/Galileo/Product Dev/Proyecto')
-data <- read_csv("pulsar_stars.csv")
+setwd('/Users/eunicerodas/Documents/Maestria/ProductDev/proyecto-product-dev/api')
+data <- read_csv("../pulsar_stars.csv")
 data <- as_tibble(data)
 data <- data %>%
   rename(
