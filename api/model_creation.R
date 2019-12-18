@@ -26,12 +26,19 @@ colnames(data)
 ## 75% of the sample size
 smp_size <- floor(0.75 * nrow(data))
 
+## 65% of the sample size
+smp_size_65 <- floor(0.65 * nrow(data))
+
 ## set the seed to make your partition reproducible
 set.seed(123)
 train_ind <- sample(seq_len(nrow(data)), size = smp_size)
+train_ind_65 <- sample(seq_len(nrow(data)), size = smp_size_65)
 
 train <- data[train_ind, ]
 test <- data[-train_ind, ]
+
+train_65 <- data[train_ind_65, ]
+test_65 <- data[-train_ind_65, ]
 
 res <- cor(train)
 round(res, 2)
@@ -39,11 +46,15 @@ corrplot(res, type = "full", order = "hclust",
          tl.col = "black", tl.srt = 45)
 
 linearMod <- lm(target_class ~ std.DMSNR.curve + Excess.kurtosis.ip + Skewness.ip + Mean.ip, data=train)
+
+linearMod_65 <- lm(target_class ~ std.DMSNR.curve + Excess.kurtosis.ip + Skewness.ip + Mean.ip, data=train_65)
 print(linearMod)
 summary(linearMod)
 
 Prediction <- predict(linearMod, test)
+PredictionB <- predict(linearMod_65, test_65)
 saveRDS(linearMod, "final_model_ref.rds")
+saveRDS(linearMod_65, "final_model_ref_65.rds")
 
 classification <- rpart(target_class ~ std.DMSNR.curve + Excess.kurtosis.ip + Skewness.ip + Mean.ip,
              method="class", data=train)

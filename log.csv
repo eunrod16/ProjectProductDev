@@ -1,11 +1,20 @@
 "Usuario","Endpoint","UserAgent","Timestamp","Modelo","Payload.std.DMSNR.curve","Payload.Excess.kurtosis.ip","Payload.Skewness.ip","Payload.Mean.ip","Output"
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 04:34:47,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:36:06,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:44:44,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:46:38,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:04,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:36,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:54,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:54:45,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 11:00:29,"Regression",1,2,1,1,0.358363389885416
-"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 11:02:50,"Regression",1,2,1,1,0.358363389885416
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 04:34:47,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:36:06,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:44:44,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:46:38,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:04,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:36,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:48:54,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 10:54:45,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 11:00:29,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-16 11:02:50,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-18 04:22:46,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-18 04:32:33,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/reg","PostmanRuntime/7.20.1",2019-12-18 04:42:00,"Regression",1,2,1,1,"0.358363389885416"
+"user","/stars/","PostmanRuntime/7.20.1",2019-12-18 04:58:33,"Classification & Regression",1,2,1,1,"0.358363389885416 0.0706422018348624"
+"user","/stars/","PostmanRuntime/7.20.1",2019-12-18 04:58:33,"Classification & Regression",1,2,1,1,"0.358363389885416 0.929357798165138"
+"user","/stars/","PostmanRuntime/7.20.1",2019-12-18 05:01:35,"Classification & Regression",1,2,1,1,"n/a"
+"user","/stars/","PostmanRuntime/7.20.1",2019-12-18 08:10:27,"Classification & Regression",1,2,1,1,"n/a"
+"user","/stars/class","PostmanRuntime/7.20.1",2019-12-18 08:12:52,"Classification",1,2,1,1,"out"
+"eunice","/stars/reg","PostmanRuntime/7.20.1",2019-12-18 09:20:14,"Regression",1,2,1,1,"0.358363389885416"
