@@ -69,16 +69,23 @@ function(std.DMSNR.curve, Excess.kurtosis.ip, Skewness.ip, Mean.ip) {
       class_out <- as.character(out)
  
       response <- list(status = "SUCCESS", code = "200",output = list(reg_out = reg_out, class_out = class_out))
-      return (repsonse)
+      return (response)
 }
 
-#' @param batch_size Batch size
 #' @param data Process data by batch size
 #' @post /stars/batch
-function(batch_size, data) {
+function(data) {
+  instances <- jsonlite::fromJSON(data)
+  input <- data.frame(instances)
+  input_ <- data_frame(Mean.ip = input$Mean.ip, Skewness.ip = input$Skewness.ip, 
+                       Excess.kurtosis.ip = input$Excess.kurtosis.ip, std.DMSNR.curve = input$std.DMSNR.curve)
   
-  response <- list(status = "SUCCESS", code = "200",output = list(reg_out = reg_out, class_out = class_out))
-  return (repsonse)
+  predicted <- predict(classification, input_, type = 'class')  
+  predicted_reg <- predict(reg, input_)
+  
+  response <- list(classification = predicted,
+                   regression = predicted_reg)
+  return (toJSON(response, force = TRUE))
 }
 
 
